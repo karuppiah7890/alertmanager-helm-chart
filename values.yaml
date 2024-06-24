@@ -28,7 +28,7 @@ alertmanagerConfigNamespaceSelector: {}
   # # OR
   # matchExpressions:
   # - key: key1
-  #   operator: In 
+  #   operator: In
   #   values:
   #   - value1
   # - key: key2
@@ -45,7 +45,7 @@ alertmanagerConfigSelector: {}
   # # OR
   # matchExpressions:
   # - key: key1
-  #   operator: In 
+  #   operator: In
   #   values:
   #   - value1
   # - key: key2
