@@ -1,0 +1,77 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  labels:
+    {{- include "alertmanager.labels" . | nindent 4 }}
+  name: {{ include "alertmanager.fullname" . }}
+spec:
+  image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
+  {{- with .Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  podMetadata:
+    {{- with .Values.podAnnotations }}
+    annotations:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    labels:
+      {{- include "alertmanager.labels" . | nindent 6 }}
+      {{- with .Values.podLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+  replicas: {{ .Values.replicaCount }}
+  resources:
+    {{- toYaml .Values.resources | nindent 4 }}
+  secrets: []
+  securityContext:
+    {{- toYaml .Values.podSecurityContext | nindent 4 }}
+  serviceAccountName: {{ include "alertmanager.serviceAccountName" . }}
+  version: {{ .Values.image.tag | default .Chart.AppVersion }}
+  {{- with .Values.tolerations }}
+  # If specified, the Alertmanager Pod’s tolerations.
+  tolerations: {{ toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.topologySpreadConstraints }}
+  # If specified, the Alertmanager Pod’s topologySpreadConstraints.
+  topologySpreadConstraints: {{ toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.alertmanagerConfigMatcherStrategy }}
+  alertmanagerConfigMatcherStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.alertmanagerConfigNamespaceSelector }}
+  alertmanagerConfigNamespaceSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.alertmanagerConfigSelector }}
+  alertmanagerConfigSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.alertmanagerConfiguration }}
+  alertmanagerConfiguration:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.volumes }}
+  volumes:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.volumeMounts }}
+  volumeMounts:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
