@@ -36,7 +36,6 @@ Common labels
 {{- define "alertmanager.labels" -}}
 helm.sh/chart: {{ include "alertmanager.chart" . }}
 {{ include "alertmanager.selectorLabels" . }}
-app.kubernetes.io/version: {{ include "alertmanager.image.tag" . }}
 app.kubernetes.io/component: alert-router
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
