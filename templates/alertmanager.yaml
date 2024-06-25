@@ -5,7 +5,7 @@ metadata:
     {{- include "alertmanager.labels" . | nindent 4 }}
   name: {{ include "alertmanager.fullname" . }}
 spec:
-  image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+  image: "{{ .Values.image.repository }}:{{ include "alertmanager.image.tag" . }}"
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   {{- with .Values.imagePullSecrets }}
   imagePullSecrets:
@@ -32,7 +32,7 @@ spec:
   securityContext:
     {{- toYaml .Values.podSecurityContext | nindent 4 }}
   serviceAccountName: {{ include "alertmanager.serviceAccountName" . }}
-  version: {{ .Values.image.tag | default .Chart.AppVersion }}
+  version: {{ include "alertmanager.image.tag" . }}
   {{- with .Values.tolerations }}
   # If specified, the Alertmanager Pod’s tolerations.
   tolerations: {{ toYaml . | nindent 4 }}

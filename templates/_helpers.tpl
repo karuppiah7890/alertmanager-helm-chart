@@ -36,7 +36,7 @@ Common labels
 {{- define "alertmanager.labels" -}}
 helm.sh/chart: {{ include "alertmanager.chart" . }}
 {{ include "alertmanager.selectorLabels" . }}
-app.kubernetes.io/version: {{ .Values.image.tag | default .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ include "alertmanager.image.tag" . }}
 app.kubernetes.io/component: alert-router
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
@@ -58,4 +58,11 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+Alertmanager Version
+*/}}
+{{- define "alertmanager.image.tag" -}}
+{{- default (printf "v%s" .Chart.AppVersion) .Values.image.tag }}
 {{- end }}
