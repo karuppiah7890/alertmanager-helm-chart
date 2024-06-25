@@ -21,7 +21,7 @@ spec:
       {{- toYaml . | nindent 6 }}
     {{- end }}
     labels:
-      {{- include "alertmanager.labels" . | nindent 6 }}
+      {{- include "alertmanager.pod.labels" . | nindent 6 }}
       {{- with .Values.podLabels }}
       {{- toYaml . | nindent 6 }}
       {{- end }}

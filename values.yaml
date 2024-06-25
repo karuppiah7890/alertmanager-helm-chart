@@ -86,10 +86,22 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# podAnnotations configures annotations which are propagated to the Alertmanager pods.
+# The following items are reserved and cannot be overridden:
+# * "kubectl.kubernetes.io/default-container" annotation, set to
+# "alertmanager".
 podAnnotations: {}
   # annotationKey1: annotationValue1
   # annotationKey2: annotationValue2
 
+# podLabels configures labels which are propagated to the Alertmanager pods.
+# The following items are reserved and cannot be overridden:
+# * "alertmanager" label, set to the name of the Alertmanager instance.
+# * "app.kubernetes.io/instance" label, set to the name of the Alertmanager
+# instance.
+# * "app.kubernetes.io/managed-by" label, set to "prometheus-operator".
+# * "app.kubernetes.io/name" label, set to "alertmanager".
+# * "app.kubernetes.io/version" label, set to the Alertmanager version.
 podLabels: {}
   # labelKey1: labelValue1
   # labelKey2: labelValue2

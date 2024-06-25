@@ -41,11 +41,32 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Alertmanager Pod labels
+*/}}
+{{- define "alertmanager.pod.labels" -}}
+helm.sh/chart: {{ include "alertmanager.chart" . }}
+app.kubernetes.io/component: alert-router
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{- define "alertmanager.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "alertmanager.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Pod Selector labels.
+This is separate from the Alertmanager custom resource labels and other labels.
+This is because Alertmanager operator has some reserved labels for the Alertmanager
+Pods and those reserved labels CANNOT be overridden
+*/}}
+{{- define "alertmanager.pod.selectorLabels" -}}
+alertmanager: {{ include "alertmanager.fullname" . }}
+app.kubernetes.io/instance: {{ include "alertmanager.fullname" . }}
+app.kubernetes.io/managed-by: prometheus-operator
+app.kubernetes.io/name: alertmanager
 {{- end }}
 
 {{/*

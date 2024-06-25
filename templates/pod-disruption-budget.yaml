@@ -9,5 +9,5 @@ spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      {{- include "alertmanager.selectorLabels" . | nindent 6 }}
+      {{- include "alertmanager.pod.selectorLabels" . | nindent 6 }}
 {{- end }}

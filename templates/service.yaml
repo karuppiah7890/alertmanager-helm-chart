@@ -15,4 +15,4 @@ spec:
   type: ClusterIP
   sessionAffinity: ClientIP
   selector:
-    {{- include "alertmanager.selectorLabels" . | nindent 4 }}
+    {{- include "alertmanager.pod.selectorLabels" . | nindent 4 }}
