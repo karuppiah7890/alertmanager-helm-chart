@@ -86,3 +86,10 @@ Alertmanager Version
 {{- define "alertmanager.image.tag" -}}
 {{- default (printf "v%s" .Chart.AppVersion) .Values.image.tag }}
 {{- end }}
+
+{{/*
+Alertmanager Web API and Web Console Port
+*/}}
+{{- define "alertmanager.web.port" -}}
+{{- 9093 }}
+{{- end }}

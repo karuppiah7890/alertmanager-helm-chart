@@ -7,7 +7,7 @@ metadata:
 spec:
   ports:
   - name: web
-    port: 9093
+    port: {{ include "alertmanager.web.port" . }}
     targetPort: web
   - name: reloader-web
     port: 8080
